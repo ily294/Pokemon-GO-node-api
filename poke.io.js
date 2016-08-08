@@ -124,7 +124,12 @@ function Pokeio() {
             f_req.auth_ticket = self.playerInfo.authTicket;
 
             var lat = self.playerInfo.latitude, lng = self.playerInfo.longitude, alt = self.playerInfo.altitude;
-            var authTicketEncoded = self.playerInfo.authTicket.encode().toBuffer();
+            var authTicketEncoded = null;
+            if (self.playerInfo.authTicket.encode) {
+                authTicketEncoded = self.playerInfo.authTicket.encode().toBuffer();
+            } else {
+                authTicketEncoded = RequestEnvelop.AuthTicket(self.playerInfo.authTicket).toBuffer();
+            }
 
             var signature = new Signature({
                 location_hash1: pogoSignature.utils.hashLocation1(authTicketEncoded, lat, lng, alt).toNumber(),
