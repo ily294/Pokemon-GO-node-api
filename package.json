@@ -10,6 +10,8 @@
     "geocoder": "^0.2.2",
     "gpsoauthnode": "^0.0.5",
     "istanbul": "^0.4.4",
+    "long": "^3.2.0",
+    "node-pogo-signature": "https://github.com/SpencerSharkey/node-pogo-signature.git",
     "protobufjs": "^5.0.1",
     "request": "^2.73.0",
     "s2-geometry": "^1.2.1",
@@ -20,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Armax/Pokemon-GO-node-api"
+    "url": "https://github.com/ily294/Pokemon-GO-node-api"
   },
   "keywords": [
     "pokemon",
