@@ -86,7 +86,8 @@ function Pokeio() {
         locationName: '',
         provider: '',
         apiEndpoint: '',
-        device_info: null
+        device_info: null,
+        authTicket: null
     };
 
     self.DebugPrint = function (str) {
@@ -137,7 +138,7 @@ function Pokeio() {
                 req = [req];
             }
 
-            req.forEach(function(request) {
+            req.forEach(function (request) {
                 var reqHash = pogoSignature.utils.hashRequest(authTicketEncoded, request.encode().toBuffer()).toString();
                 var hash = require('long').fromString(reqHash, true, 10);
                 signature.request_hash.push(hash);
@@ -145,7 +146,7 @@ function Pokeio() {
 
             // Simulate real device
             // add  condition
-            if( self.playerInfo.device_info !== null ) {
+            if (self.playerInfo.device_info !== null) {
                 signature.device_info = new Signature.DeviceInfo({
                     device_id: self.playerInfo.device_info.device_id,
                     android_board_name: self.playerInfo.device_info.android_board_name,
@@ -172,7 +173,7 @@ function Pokeio() {
 
             var iv = crypto.randomBytes(32);
 
-            pogoSignature.encrypt(signature.encode().toBuffer(), iv, function(err, signatureEnc) {
+            pogoSignature.encrypt(signature.encode().toBuffer(), iv, function (err, signatureEnc) {
                 f_req.unknown6 = new RequestEnvelop.Unknown6({
                     unknown1: 6,
                     unknown2: new RequestEnvelop.Unknown6.Unknown2({
@@ -544,7 +545,7 @@ function Pokeio() {
         });
     };
 
-    self.RenamePokemon = function(pokemonId, nickname, callback) {
+    self.RenamePokemon = function (pokemonId, nickname, callback) {
         var renamePokemonMessage = new RequestEnvelop.NicknamePokemonMessage({
             'pokemon_id': pokemonId,
             'nickname': nickname,
@@ -845,8 +846,7 @@ function Pokeio() {
     };
 
     // Set device info for uk6
-    self.SetDeviceInfo = function(devInfo)
-    {
+    self.SetDeviceInfo = function (devInfo) {
         self.playerInfo.device_info = devInfo;
     }
 
